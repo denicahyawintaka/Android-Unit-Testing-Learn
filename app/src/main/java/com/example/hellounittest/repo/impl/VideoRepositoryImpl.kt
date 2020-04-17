@@ -5,11 +5,12 @@ import com.example.hellounittest.model.Video
 import com.example.hellounittest.repo.VideoRepository
 import com.example.hellounittest.util.VideoUtil
 import io.reactivex.Completable
+import io.reactivex.Observable
 import io.reactivex.Single
 
 class VideoRepositoryImpl(private val retrofitService: RetrofitService) : VideoRepository {
 
-    override fun getAllVideo(): Single<List<Video>> {
+    override fun getAllVideo(): Observable<List<Video>> {
         return retrofitService.getAllVideo()
     }
 
@@ -23,6 +24,7 @@ class VideoRepositoryImpl(private val retrofitService: RetrofitService) : VideoR
 
     override fun putVideoRating(id: String, ratting: Int): Completable {
         val newRatting = VideoUtil.calculateRatting(ratting)
-        return retrofitService.putVideoRating(id, newRatting)
+        val list = listOf(id, "abc", "def")
+        return retrofitService.putVideoRating(list, newRatting)
     }
 }
